@@ -74,24 +74,58 @@ console.log(fifteen);
 // Array.prototype.map()
 // 2. Give us an array of the inventors first and last names
 
-const firstLastName = inventors.map(
+const fullName = inventors.map(
   (inventor) => `${inventor.first} ${inventor.last}`
 );
-console.log(firstLastName);
+console.log(fullName);
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
+const birthDate = inventors.sort((a, b) => {
+  if (a.year > b.year) {
+    return 1;
+  } else {
+    return -1;
+  }
+});
+console.log(birthDate);
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live all together?
+const totalYearLived = inventors.reduce((total, inventor) => {
+  return total + (inventor.passed - inventor.year);
+}, 0);
+console.log(totalYearLived);
 
 // 5. Sort the inventors by years lived
+const oldest = inventors.sort((a, b) => {
+  const lastInventor = a.passed - a.year;
+  const nextInventor = b.passed - b.year;
+
+  if (lastInventor > nextInventor) {
+    return -1;
+  } else {
+    return 1;
+  }
+});
+console.log(oldest);
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+const alpha = people.sort((lastName, nextName) => {
+  const [aLast, aFirst] = lastName.split(", ");
+  const [bLast, bFirst] = nextName.split(", ");
+
+  if (aLast > bLast) {
+    return 1;
+  } else {
+    return -1;
+  }
+});
+console.log(alpha);
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
@@ -111,3 +145,9 @@ const data = [
   "car",
   "truck",
 ];
+const transport = data.reduce((obj, item) => {
+  if (!obj[item]) obj[item] = 0;
+  obj[item]++;
+  return obj;
+});
+console.log(transport);
